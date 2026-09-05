@@ -14,51 +14,67 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#dbeafe,#eff6ff);
+    background: linear-gradient(135deg,#dbeafe,#f0f9ff);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .chat {
-    width: 400px;
-    height: 600px;
+    width: 420px;
+    height: 650px;
     background: white;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 30px #777;
 }
 
-/* Header */
+/* HEADER */
 .header {
     background: #007bff;
     color: white;
-    padding: 18px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
 }
 
-.header h2 {
+.profile {
+    width: 45px;
+    height: 45px;
+    background: white;
+    color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.header h3 {
     margin: 0;
 }
 
 .status {
-    font-size: 13px;
+    font-size: 12px;
     color: #c8ffc8;
 }
 
-/* Chat area */
+/* CHAT AREA */
 .chat-box {
-    height: 400px;
+    height: 380px;
     padding: 15px;
     overflow-y: auto;
     background: #f5f7fb;
 }
 
 .message {
-    max-width: 75%;
-    padding: 10px 14px;
-    margin: 8px 0;
+    max-width: 78%;
+    padding: 10px 13px;
+    margin: 9px 0;
     border-radius: 15px;
+    position: relative;
 }
 
 .bot {
@@ -73,22 +89,31 @@ body {
 
 .time {
     display: block;
-    font-size: 10px;
+    font-size: 9px;
     opacity: .6;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 
-/* Typing */
+/* COPY BUTTON */
+.copy {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+/* TYPING */
 .typing {
     display: none;
-    font-size: 13px;
-    color: gray;
     padding: 5px 15px;
+    color: gray;
+    font-size: 13px;
 }
 
-/* Quick buttons */
+/* QUICK REPLIES */
 .quick {
-    padding: 8px;
+    padding: 6px;
     text-align: center;
 }
 
@@ -96,16 +121,22 @@ body {
     border: 1px solid #007bff;
     background: white;
     color: #007bff;
-    padding: 6px 10px;
+    padding: 6px 9px;
     border-radius: 15px;
     cursor: pointer;
+    margin: 2px;
 }
 
-/* Input */
+.quick button:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* INPUT */
 .input-area {
     display: flex;
-    padding: 10px;
     gap: 5px;
+    padding: 10px;
 }
 
 .input-area input {
@@ -113,32 +144,58 @@ body {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 20px;
+    outline: none;
 }
 
 .input-area button {
+    width: 42px;
     border: none;
     border-radius: 50%;
-    width: 42px;
     background: #007bff;
     color: white;
     cursor: pointer;
 }
 
-/* Bottom buttons */
+/* EMOJI */
+.emoji-box {
+    display: none;
+    text-align: center;
+    padding: 5px;
+    font-size: 22px;
+}
+
+.emoji-box span {
+    cursor: pointer;
+    margin: 3px;
+}
+
+/* BOTTOM */
 .bottom {
     display: flex;
     justify-content: space-around;
-    padding: 5px;
+    padding: 7px;
 }
 
 .bottom button {
     border: none;
-    background: none;
+    background: transparent;
     cursor: pointer;
     font-size: 18px;
 }
 
-/* Dark mode */
+/* RATING */
+.rating {
+    display: none;
+    text-align: center;
+    padding: 10px;
+}
+
+.rating span {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* DARK MODE */
 .dark {
     background: #111827;
 }
@@ -155,6 +212,24 @@ body {
     background: #374151;
     color: white;
 }
+
+.dark input {
+    background: #374151;
+    color: white;
+}
+
+/* MOBILE */
+@media(max-width:500px) {
+
+    .chat {
+        width: 95%;
+        height: 95vh;
+    }
+
+    .chat-box {
+        height: 55vh;
+    }
+}
 </style>
 </head>
 
@@ -162,73 +237,143 @@ body {
 
 <div class="chat">
 
-    <div class="header">
-        <h2>💬 Customer Support</h2>
-        <span class="status">● Online</span>
+<!-- HEADER -->
+<div class="header">
+
+    <div class="profile">👩‍💼</div>
+
+    <div>
+        <h3>Customer Support</h3>
+        <div class="status">🟢 Online • Available 24/7</div>
     </div>
 
-    <div class="chat-box" id="chatBox">
+</div>
 
-        <div class="message bot">
-            Hello 👋<br>
-            Welcome to Customer Support!
-            <span class="time">Now</span>
-        </div>
 
-    </div>
+<!-- CHAT -->
+<div class="chat-box" id="chatBox">
 
-    <div class="typing" id="typing">
-        Support is typing...
-    </div>
+    <div class="message bot">
 
-    <div class="quick">
-        <button onclick="quickMessage('Track my order')">
-            📦 Track Order
-        </button>
+        Hello! 👋
 
-        <button onclick="quickMessage('I need help')">
-            🆘 Help
-        </button>
-    </div>
+        <br>
 
-    <div class="input-area">
+        Welcome to Customer Support.
 
-        <button onclick="emoji()">😊</button>
+        <br>
 
-        <input
-            type="text"
-            id="message"
-            placeholder="Type your message..."
-        >
+        How can I help you today?
 
-        <button onclick="sendMessage()">➤</button>
-
-    </div>
-
-    <div class="bottom">
-
-        <button onclick="clearChat()" title="Clear Chat">
-            🗑️
-        </button>
-
-        <button onclick="darkMode()" title="Dark Mode">
-            🌙
-        </button>
-
-        <button onclick="alert('Support team is available 24/7!')">
-            ℹ️
-        </button>
+        <span class="time">Now</span>
 
     </div>
 
 </div>
 
+
+<!-- TYPING -->
+<div class="typing" id="typing">
+    Support is typing...
+</div>
+
+
+<!-- QUICK REPLIES -->
+<div class="quick">
+
+    <button onclick="quickMessage('Track my order')">
+        📦 Track Order
+    </button>
+
+    <button onclick="quickMessage('I need a refund')">
+        💳 Refund
+    </button>
+
+    <button onclick="quickMessage('I need help')">
+        🆘 Help
+    </button>
+
+</div>
+
+
+<!-- EMOJI -->
+<div class="emoji-box" id="emojiBox">
+
+    <span onclick="addEmoji('😊')">😊</span>
+    <span onclick="addEmoji('😂')">😂</span>
+    <span onclick="addEmoji('❤️')">❤️</span>
+    <span onclick="addEmoji('👍')">👍</span>
+    <span onclick="addEmoji('😢')">😢</span>
+    <span onclick="addEmoji('🙏')">🙏</span>
+
+</div>
+
+
+<!-- INPUT -->
+<div class="input-area">
+
+    <button onclick="toggleEmoji()">😊</button>
+
+    <input
+        type="text"
+        id="message"
+        placeholder="Type your message..."
+    >
+
+    <button onclick="sendMessage()">➤</button>
+
+</div>
+
+
+<!-- BOTTOM -->
+<div class="bottom">
+
+    <button onclick="clearChat()" title="Clear Chat">
+        🗑️
+    </button>
+
+    <button onclick="darkMode()" title="Dark Mode">
+        🌙
+    </button>
+
+    <button onclick="showRating()" title="Rate Support">
+        ⭐
+    </button>
+
+    <button onclick="showInfo()" title="Support Info">
+        ℹ️
+    </button>
+
+</div>
+
+
+<!-- RATING -->
+<div class="rating" id="rating">
+
+    <b>Rate our support</b>
+
+    <br>
+
+    <span onclick="rate(1)">⭐</span>
+    <span onclick="rate(2)">⭐</span>
+    <span onclick="rate(3)">⭐</span>
+    <span onclick="rate(4)">⭐</span>
+    <span onclick="rate(5)">⭐</span>
+
+</div>
+
+</div>
+
+
 <script>
 
 let input = document.getElementById("message");
 let chatBox = document.getElementById("chatBox");
+let typing = document.getElementById("typing");
 
-/* Send message */
+
+/* SEND MESSAGE */
+
 function sendMessage() {
 
     let text = input.value.trim();
@@ -239,20 +384,26 @@ function sendMessage() {
 
     input.value = "";
 
-    document.getElementById("typing").style.display = "block";
+    document.getElementById("emojiBox").style.display = "none";
+
+    typing.style.display = "block";
 
     setTimeout(function() {
 
-        document.getElementById("typing").style.display = "none";
+        typing.style.display = "none";
 
         let reply = getReply(text);
 
         addMessage(reply, "bot");
 
+        notification();
+
     }, 1000);
 }
 
-/* Add message */
+
+/* ADD MESSAGE */
+
 function addMessage(text, type) {
 
     let message = document.createElement("div");
@@ -265,96 +416,201 @@ function addMessage(text, type) {
     });
 
     message.innerHTML =
-        text + '<span class="time">' + time + '</span>';
+        text +
+        '<span class="time">' +
+        time +
+        '</span>';
 
     chatBox.appendChild(message);
 
     chatBox.scrollTop = chatBox.scrollHeight;
-
-    localStorage.setItem("chat", chatBox.innerHTML);
 }
 
-/* Automatic replies */
+
+/* AUTOMATIC REPLY */
+
 function getReply(text) {
 
     text = text.toLowerCase();
 
-    if (text.includes("hello") || text.includes("hi"))
+    if (text.includes("hello") ||
+        text.includes("hi") ||
+        text.includes("hey")) {
+
         return "Hello! 😊 How can I help you?";
+    }
 
-    if (text.includes("order"))
-        return "📦 Please provide your order ID to track your order.";
+    if (text.includes("order") ||
+        text.includes("track")) {
 
-    if (text.includes("price"))
-        return "💰 Please tell me which product price you want to know.";
+        return "📦 Please provide your Order ID. We will check the delivery status.";
+    }
 
-    if (text.includes("refund"))
-        return "💳 Refund requests are usually processed within 5-7 working days.";
+    if (text.includes("refund") ||
+        text.includes("money")) {
 
-    if (text.includes("help"))
-        return "🆘 Sure! Please explain your problem.";
+        return "💳 Refund requests are normally processed within 5-7 working days.";
+    }
 
-    if (text.includes("thank"))
-        return "You're welcome! 😊";
+    if (text.includes("delivery")) {
 
-    return "Thank you for contacting us. Our support team will assist you shortly.";
+        return "🚚 Please provide your Order ID to check your delivery status.";
+    }
+
+    if (text.includes("price") ||
+        text.includes("cost")) {
+
+        return "💰 Please tell me the product name and I will help you with the price.";
+    }
+
+    if (text.includes("help") ||
+        text.includes("problem")) {
+
+        return "🆘 Sure! Please explain your problem and our support team will assist you.";
+    }
+
+    if (text.includes("thank")) {
+
+        return "You're welcome! 😊 Have a wonderful day!";
+    }
+
+    return "Thank you for contacting us! 😊 Our support team will assist you shortly.";
 }
 
-/* Quick message */
+
+/* QUICK MESSAGE */
+
 function quickMessage(text) {
 
     input.value = text;
+
     sendMessage();
 
 }
 
-/* Emoji */
-function emoji() {
 
-    input.value += " 😊";
+/* EMOJI */
+
+function toggleEmoji() {
+
+    let box = document.getElementById("emojiBox");
+
+    box.style.display =
+        box.style.display === "block"
+        ? "none"
+        : "block";
+}
+
+
+function addEmoji(emoji) {
+
+    input.value += emoji;
+
     input.focus();
 
 }
 
-/* Enter key */
+
+/* ENTER KEY */
+
 input.addEventListener("keypress", function(event) {
 
     if (event.key === "Enter") {
+
         sendMessage();
+
     }
 
 });
 
-/* Clear chat */
+
+/* CLEAR CHAT */
+
 function clearChat() {
 
-    if (confirm("Clear chat history?")) {
+    chatBox.innerHTML = `
+        <div class="message bot">
 
-        chatBox.innerHTML = "";
+            Hello! 👋
 
-        localStorage.removeItem("chat");
+            <br>
 
-    }
+            Welcome to Customer Support.
 
+            <br>
+
+            How can I help you today?
+
+            <span class="time">Now</span>
+
+        </div>
+    `;
 }
 
-/* Dark mode */
+
+/* DARK MODE */
+
 function darkMode() {
 
     document.body.classList.toggle("dark");
 
 }
 
-/* Load chat history */
-window.onload = function() {
 
-    let savedChat = localStorage.getItem("chat");
+/* RATING */
 
-    if (savedChat) {
-        chatBox.innerHTML = savedChat;
+function showRating() {
+
+    document.getElementById("rating").style.display = "block";
+
+}
+
+
+function rate(number) {
+
+    alert(
+        "Thank you! ⭐ You rated our support " +
+        number +
+        "/5"
+    );
+
+    document.getElementById("rating").style.display = "none";
+
+}
+
+
+/* SUPPORT INFORMATION */
+
+function showInfo() {
+
+    alert(
+        "CUSTOMER SUPPORT\n\n" +
+        "🟢 Status: Online\n" +
+        "⏰ Available: 24/7\n" +
+        "📦 Order Tracking Available\n" +
+        "💳 Refund Support Available"
+    );
+
+}
+
+
+/* NOTIFICATION */
+
+function notification() {
+
+    if ("Notification" in window) {
+
+        if (Notification.permission === "granted") {
+
+            new Notification("Customer Support", {
+                body: "You received a new support message 💬"
+            });
+
+        }
+
     }
 
-};
+}
 
 </script>
 
