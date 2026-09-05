@@ -1,178 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Customer Support Chat</title>
+<title>Customer Support Chat</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #e8f1f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#dbeafe,#eff6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        .chat-container {
-            width: 380px;
-            height: 550px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px #888;
-        }
+.chat {
+    width: 400px;
+    height: 600px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px #777;
+}
 
-        .header {
-            background: #007bff;
-            color: white;
-            padding: 18px;
-            font-size: 20px;
-            font-weight: bold;
-        }
+/* Header */
+.header {
+    background: #007bff;
+    color: white;
+    padding: 18px;
+}
 
-        .online {
-            float: right;
-            font-size: 13px;
-            color: #baffba;
-        }
+.header h2 {
+    margin: 0;
+}
 
-        .chat-box {
-            height: 420px;
-            padding: 15px;
-            overflow-y: auto;
-            background: #f5f5f5;
-        }
+.status {
+    font-size: 13px;
+    color: #c8ffc8;
+}
 
-        .message {
-            padding: 10px 14px;
-            margin: 10px 0;
-            border-radius: 15px;
-            max-width: 75%;
-        }
+/* Chat area */
+.chat-box {
+    height: 400px;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f5f7fb;
+}
 
-        .bot {
-            background: #ddd;
-        }
+.message {
+    max-width: 75%;
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 15px;
+}
 
-        .user {
-            background: #007bff;
-            color: white;
-            margin-left: auto;
-        }
+.bot {
+    background: #e1e1e1;
+}
 
-        .input-area {
-            display: flex;
-            padding: 10px;
-        }
+.user {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+}
 
-        input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-        }
+.time {
+    display: block;
+    font-size: 10px;
+    opacity: .6;
+    margin-top: 4px;
+}
 
-        button {
-            margin-left: 8px;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 20px;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-        }
+/* Typing */
+.typing {
+    display: none;
+    font-size: 13px;
+    color: gray;
+    padding: 5px 15px;
+}
 
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+/* Quick buttons */
+.quick {
+    padding: 8px;
+    text-align: center;
+}
+
+.quick button {
+    border: 1px solid #007bff;
+    background: white;
+    color: #007bff;
+    padding: 6px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+/* Input */
+.input-area {
+    display: flex;
+    padding: 10px;
+    gap: 5px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.input-area button {
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+/* Bottom buttons */
+.bottom {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+
+.bottom button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Dark mode */
+.dark {
+    background: #111827;
+}
+
+.dark .chat {
+    background: #1f2937;
+}
+
+.dark .chat-box {
+    background: #111827;
+}
+
+.dark .bot {
+    background: #374151;
+    color: white;
+}
+</style>
 </head>
 
 <body>
 
-    <div class="chat-container">
+<div class="chat">
 
-        <div class="header">
-            💬 Customer Support
-            <span class="online">● Online</span>
-        </div>
+    <div class="header">
+        <h2>💬 Customer Support</h2>
+        <span class="status">● Online</span>
+    </div>
 
-        <div class="chat-box" id="chatBox">
-            <div class="message bot">
-                Hello! 👋 How can we help you?
-            </div>
-        </div>
+    <div class="chat-box" id="chatBox">
 
-        <div class="input-area">
-            <input 
-                type="text" 
-                id="messageInput"
-                placeholder="Type your message..."
-            >
-
-            <button onclick="sendMessage()">Send</button>
+        <div class="message bot">
+            Hello 👋<br>
+            Welcome to Customer Support!
+            <span class="time">Now</span>
         </div>
 
     </div>
 
-    <script>
+    <div class="typing" id="typing">
+        Support is typing...
+    </div>
 
-        function sendMessage() {
+    <div class="quick">
+        <button onclick="quickMessage('Track my order')">
+            📦 Track Order
+        </button>
 
-            let input = document.getElementById("messageInput");
-            let message = input.value.trim();
+        <button onclick="quickMessage('I need help')">
+            🆘 Help
+        </button>
+    </div>
 
-            if (message === "") {
-                return;
-            }
+    <div class="input-area">
 
-            let chatBox = document.getElementById("chatBox");
+        <button onclick="emoji()">😊</button>
 
-            // User message
-            let userMessage = document.createElement("div");
-            userMessage.className = "message user";
-            userMessage.textContent = message;
+        <input
+            type="text"
+            id="message"
+            placeholder="Type your message..."
+        >
 
-            chatBox.appendChild(userMessage);
+        <button onclick="sendMessage()">➤</button>
 
-            input.value = "";
+    </div>
 
-            chatBox.scrollTop = chatBox.scrollHeight;
+    <div class="bottom">
 
-            // Support reply
-            setTimeout(function () {
+        <button onclick="clearChat()" title="Clear Chat">
+            🗑️
+        </button>
 
-                let botMessage = document.createElement("div");
-                botMessage.className = "message bot";
+        <button onclick="darkMode()" title="Dark Mode">
+            🌙
+        </button>
 
-                botMessage.textContent =
-                    "Thank you for your message! 😊 Our support team will help you shortly.";
+        <button onclick="alert('Support team is available 24/7!')">
+            ℹ️
+        </button>
 
-                chatBox.appendChild(botMessage);
+    </div>
 
-                chatBox.scrollTop = chatBox.scrollHeight;
+</div>
 
-            }, 1000);
-        }
+<script>
 
-        // Press Enter to send
-        document.getElementById("messageInput").addEventListener("keypress", function(event) {
+let input = document.getElementById("message");
+let chatBox = document.getElementById("chatBox");
 
-            if (event.key === "Enter") {
-                sendMessage();
-            }
+/* Send message */
+function sendMessage() {
 
-        });
+    let text = input.value.trim();
 
-    </script>
+    if (text === "") return;
+
+    addMessage(text, "user");
+
+    input.value = "";
+
+    document.getElementById("typing").style.display = "block";
+
+    setTimeout(function() {
+
+        document.getElementById("typing").style.display = "none";
+
+        let reply = getReply(text);
+
+        addMessage(reply, "bot");
+
+    }, 1000);
+}
+
+/* Add message */
+function addMessage(text, type) {
+
+    let message = document.createElement("div");
+
+    message.className = "message " + type;
+
+    let time = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    message.innerHTML =
+        text + '<span class="time">' + time + '</span>';
+
+    chatBox.appendChild(message);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    localStorage.setItem("chat", chatBox.innerHTML);
+}
+
+/* Automatic replies */
+function getReply(text) {
+
+    text = text.toLowerCase();
+
+    if (text.includes("hello") || text.includes("hi"))
+        return "Hello! 😊 How can I help you?";
+
+    if (text.includes("order"))
+        return "📦 Please provide your order ID to track your order.";
+
+    if (text.includes("price"))
+        return "💰 Please tell me which product price you want to know.";
+
+    if (text.includes("refund"))
+        return "💳 Refund requests are usually processed within 5-7 working days.";
+
+    if (text.includes("help"))
+        return "🆘 Sure! Please explain your problem.";
+
+    if (text.includes("thank"))
+        return "You're welcome! 😊";
+
+    return "Thank you for contacting us. Our support team will assist you shortly.";
+}
+
+/* Quick message */
+function quickMessage(text) {
+
+    input.value = text;
+    sendMessage();
+
+}
+
+/* Emoji */
+function emoji() {
+
+    input.value += " 😊";
+    input.focus();
+
+}
+
+/* Enter key */
+input.addEventListener("keypress", function(event) {
+
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+
+});
+
+/* Clear chat */
+function clearChat() {
+
+    if (confirm("Clear chat history?")) {
+
+        chatBox.innerHTML = "";
+
+        localStorage.removeItem("chat");
+
+    }
+
+}
+
+/* Dark mode */
+function darkMode() {
+
+    document.body.classList.toggle("dark");
+
+}
+
+/* Load chat history */
+window.onload = function() {
+
+    let savedChat = localStorage.getItem("chat");
+
+    if (savedChat) {
+        chatBox.innerHTML = savedChat;
+    }
+
+};
+
+</script>
 
 </body>
 </html>
