@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Support Chat</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #e8f1f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px #888;
+        }
+
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 18px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .online {
+            float: right;
+            font-size: 13px;
+            color: #baffba;
+        }
+
+        .chat-box {
+            height: 420px;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f5f5f5;
+        }
+
+        .message {
+            padding: 10px 14px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 75%;
+        }
+
+        .bot {
+            background: #ddd;
+        }
+
+        .user {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
+        button {
+            margin-left: 8px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 20px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-container">
+
+        <div class="header">
+            💬 Customer Support
+            <span class="online">● Online</span>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+            <div class="message bot">
+                Hello! 👋 How can we help you?
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input 
+                type="text" 
+                id="messageInput"
+                placeholder="Type your message..."
+            >
+
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+    </div>
+
+    <script>
+
+        function sendMessage() {
+
+            let input = document.getElementById("messageInput");
+            let message = input.value.trim();
+
+            if (message === "") {
+                return;
+            }
+
+            let chatBox = document.getElementById("chatBox");
+
+            // User message
+            let userMessage = document.createElement("div");
+            userMessage.className = "message user";
+            userMessage.textContent = message;
+
+            chatBox.appendChild(userMessage);
+
+            input.value = "";
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Support reply
+            setTimeout(function () {
+
+                let botMessage = document.createElement("div");
+                botMessage.className = "message bot";
+
+                botMessage.textContent =
+                    "Thank you for your message! 😊 Our support team will help you shortly.";
+
+                chatBox.appendChild(botMessage);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            }, 1000);
+        }
+
+        // Press Enter to send
+        document.getElementById("messageInput").addEventListener("keypress", function(event) {
+
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
